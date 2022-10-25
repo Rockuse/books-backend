@@ -39,7 +39,7 @@ async function listBookHandler(req, h) {
     const { reading, finished, name } = req.query;
     // reading
     if (reading !== undefined) {
-      const book = books.filter((item) => (item.reading == (reading == '1')));
+      const book = await books.filter((item) => (item.reading == (reading == '1')));
       const listBook = book.map(pickKeys);
       const response = h.response({
         status: 'success',
@@ -64,7 +64,7 @@ async function listBookHandler(req, h) {
     // name
     if (name !== undefined) {
       const book = books.filter((item) => item.name.toLowerCase().includes(name.toLowerCase()));
-      const listBook = book.map(pickKeys);
+      const listBook = await book.map(pickKeys);
       const response = h.response({
         status: 'success',
         data: {
@@ -74,7 +74,7 @@ async function listBookHandler(req, h) {
       return response;
     }
     // Return All
-    const listBook = books.map(pickKeys);
+    const listBook = await books.map(pickKeys);
     const response = h.response({
       status: 'success',
       data: {
